@@ -2,12 +2,21 @@
 <html lang="vi" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nguyễn Thị Kim Anh · Giáo viên Tiếng Anh</title>
-  <meta name="description" content="Nguyễn Thị Kim Anh – Giáo viên Tiếng Anh tại Đà Nẵng." />
-  <meta property="og:title" content="Nguyễn Thị Kim Anh · Giáo viên Tiếng Anh" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>English with Ms. Annie · Nguyễn Thị Kim Anh – Giáo viên Tiếng Anh</title>
+  <meta name="description" content="English with Ms. Annie – Nguyễn Thị Kim Anh, giáo viên Tiếng Anh tại Đà Nẵng." />
+  <meta property="og:title" content="English with Ms. Annie" />
   <meta property="og:type" content="website" />
   <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" id="themeColor" content="#FAF8F3" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-title" content="Ms. Annie" />
+
+  <!-- Biểu tượng: tab trình duyệt, màn hình chính iOS / Android -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
 
   <!-- Áp dụng theme + ngôn ngữ TRƯỚC khi vẽ trang để không bị nháy màu -->
   <script>
@@ -18,6 +27,8 @@
       var theme = get('ka-theme');
       var dark = theme ? theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
       document.documentElement.classList.toggle('dark', dark);
+      var m = document.getElementById('themeColor');
+      if (m) m.setAttribute('content', dark ? '#101412' : '#FAF8F3');
     })();
   </script>
 
@@ -41,8 +52,9 @@
             band: tw('band'), onband: tw('on-band')
           },
           fontFamily: {
-            sans:  ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
-            serif: ['Lora', 'Georgia', 'serif']
+            // Font dự phòng khi Google Fonts bị chặn: San Francisco (iOS/macOS), Segoe UI (Windows), Roboto (Android)
+            sans:  ['"Be Vietnam Pro"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+            serif: ['Lora', 'Georgia', '"Times New Roman"', 'serif']
           },
           maxWidth: { page: '72rem' }
         }
@@ -69,7 +81,27 @@
       --chalk: 214 172 74;   --mark: 214 172 74 / .28;
       --band: 26 46 40;      --on-band: 236 233 225;
     }
-    body { background: rgb(var(--paper)); color: rgb(var(--ink)); transition: background-color .25s ease, color .25s ease; }
+    /* ---------- Tương thích thiết bị ---------- */
+    html {
+      background: rgb(var(--paper));
+      -webkit-text-size-adjust: 100%; text-size-adjust: 100%;   /* iOS không tự phóng chữ khi xoay ngang */
+    }
+    body {
+      background: rgb(var(--paper)); color: rgb(var(--ink));
+      -webkit-tap-highlight-color: transparent;
+      overflow-wrap: break-word;
+      /* Tai thỏ / Dynamic Island khi xoay ngang iPhone */
+      padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);
+      transition: background-color .25s ease, color .25s ease;
+    }
+    .hdr { -webkit-backdrop-filter: saturate(1.4) blur(10px); backdrop-filter: saturate(1.4) blur(10px); padding-top: env(safe-area-inset-top); }
+    .ftr { padding-bottom: env(safe-area-inset-bottom); }
+    img { max-width: 100%; height: auto; }
+    button { touch-action: manipulation; }
+    /* Màn hình nhỏ (≤ 360px) và màn hình lớn (Full HD, 2K, 4K) */
+    @media (max-width: 360px)  { html { font-size: 15px; } }
+    @media (min-width: 1920px) { html { font-size: 17px; } }
+    @media (min-width: 2560px) { html { font-size: 19px; } }
     .mark { background: linear-gradient(transparent 62%, rgb(var(--mark)) 62%); padding: 0 .1em; }
     .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.is-visible { opacity: 1; transform: none; }
@@ -88,30 +120,35 @@
   <a href="#main" data-ui="skip" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-card focus:px-4 focus:py-2 focus:rounded-lg"></a>
 
   <!-- ================= HEADER ================= -->
-  <header class="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-line">
-    <div class="max-w-page mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-      <a href="#/" class="flex items-center gap-2.5 min-w-0">
-        <span id="logoInitials" class="shrink-0 w-9 h-9 rounded-full bg-brand text-onbrand grid place-items-center font-serif font-semibold"></span>
-        <span class="leading-tight min-w-0">
-          <span id="logoName" class="block font-serif font-semibold text-[15px] truncate"></span>
-          <span id="logoRole" class="hidden sm:block text-[11px] tracking-[.14em] uppercase text-ink-mute truncate"></span>
+  <header class="hdr sticky top-0 z-40 bg-paper/85 border-b border-line">
+    <div class="max-w-page mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
+      <!-- LOGO: biểu tượng chữ A (thanh ngang màu phấn) + chữ "English with Ms. Annie" -->
+      <a href="#/" id="logoLink" class="flex items-center gap-2 min-[380px]:gap-2.5 min-w-0">
+        <svg class="shrink-0 w-9 h-9 min-[380px]:w-10 min-[380px]:h-10 rounded-full dark:ring-1 dark:ring-white/20" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="32" fill="#1F5A4A"/>
+          <path d="M20 47L32 16L44 47" fill="none" stroke="#FAF8F3" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M24.5 37.5H39.5" stroke="#E9B949" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <span class="leading-none min-w-0">
+          <span id="logoTagline" class="block whitespace-nowrap text-[9.5px] min-[380px]:text-[10px] tracking-[.12em] min-[380px]:tracking-[.22em] uppercase text-ink-mute font-medium"></span>
+          <span id="logoName" class="block mt-1 font-serif font-semibold text-[17px] min-[380px]:text-[19px] tracking-tight whitespace-nowrap"></span>
         </span>
       </a>
 
       <nav id="desktopNav" class="hidden lg:flex items-center gap-6 text-sm text-ink-soft" aria-label="Main"></nav>
 
-      <div class="flex items-center gap-1.5 shrink-0">
+      <div class="flex items-center gap-1 min-[380px]:gap-1.5 shrink-0">
         <div id="langSwitch" role="group" class="flex rounded-full border border-line p-0.5 text-[12px] font-semibold">
-          <button type="button" data-lang-btn="vi" class="px-2.5 py-1 rounded-full transition">VI</button>
-          <button type="button" data-lang-btn="en" class="px-2.5 py-1 rounded-full transition">EN</button>
+          <button type="button" data-lang-btn="vi" class="min-w-[36px] h-8 px-2 rounded-full transition">VI</button>
+          <button type="button" data-lang-btn="en" class="min-w-[36px] h-8 px-2 rounded-full transition">EN</button>
         </div>
-        <button type="button" id="themeBtn" class="w-9 h-9 grid place-items-center rounded-full border border-line hover:border-brand hover:text-brand transition">
+        <button type="button" id="themeBtn" class="w-10 h-10 grid place-items-center rounded-full border border-line hover:border-brand hover:text-brand transition">
           <!-- mặt trăng: hiện ở chế độ sáng -->
           <svg class="dark:hidden" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg>
           <!-- mặt trời: hiện ở chế độ tối -->
           <svg class="hidden dark:block" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         </button>
-        <button type="button" id="menuBtn" class="lg:hidden w-9 h-9 grid place-items-center -mr-1.5 rounded-lg" aria-expanded="false" aria-controls="mobileNav">
+        <button type="button" id="menuBtn" class="lg:hidden w-10 h-10 grid place-items-center -mr-2 rounded-lg" aria-expanded="false" aria-controls="mobileNav">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
       </div>
@@ -137,7 +174,8 @@
             <p class="inline-flex items-center gap-2 text-[12px] tracking-[.16em] uppercase text-brand font-semibold">
               <span class="w-6 h-px bg-brand"></span><span id="heroEyebrow"></span>
             </p>
-            <h1 id="heroName" class="mt-4 font-serif font-semibold text-[2.35rem] leading-[1.12] sm:text-5xl sm:leading-[1.08] tracking-tight"></h1>
+            <h1 id="heroName" class="mt-4 font-serif font-semibold text-[clamp(2.1rem,8.5vw,3rem)] leading-[1.1] tracking-tight"></h1>
+            <p id="heroAlias" class="mt-1.5 font-serif italic font-medium text-brand text-[clamp(1.4rem,5vw,1.85rem)]"></p>
             <p id="heroHeadline" class="mt-5 text-lg sm:text-xl text-ink-soft max-w-xl"></p>
             <p id="heroQuote" class="mt-3 font-serif italic text-ink-mute"></p>
             <div class="mt-8 flex flex-wrap gap-3">
@@ -151,9 +189,9 @@
           <div class="order-1 md:order-2 flex justify-center md:justify-end">
             <figure class="relative w-56 sm:w-72 md:w-80">
               <div class="absolute -inset-3 rounded-[999px_999px_28px_28px] border border-line" aria-hidden="true"></div>
-              <img id="heroPhoto" alt="" width="440" height="587"
+              <img id="heroPhoto" alt="" width="440" height="587" fetchpriority="high" decoding="async"
                    class="relative w-full aspect-[3/4] object-cover object-top rounded-[999px_999px_24px_24px] bg-brand-tint dark:brightness-[.92]" />
-              <figcaption class="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-card border border-line rounded-full px-4 py-1.5 text-[13px] shadow-sm">
+              <figcaption class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-max max-w-[calc(100vw-2rem)] text-center bg-card border border-line rounded-full px-4 py-1.5 text-[13px] shadow-sm">
                 <span class="inline-block w-2 h-2 rounded-full bg-brand mr-1.5 align-middle"></span><span id="heroBadge"></span>
               </figcaption>
             </figure>
@@ -287,9 +325,9 @@
     </div>
   </main>
 
-  <footer class="border-t border-line">
+  <footer class="ftr border-t border-line">
     <div class="max-w-page mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row gap-3 justify-between text-sm text-ink-mute">
-      <p>© <span id="year"></span> <span id="footName"></span> · <span id="footRole"></span></p>
+      <p>© <span id="year"></span> <span id="footBrand" class="font-medium text-ink-soft"></span> · <span id="footName"></span></p>
       <p data-ui="footerPlace"></p>
     </div>
   </footer>
@@ -372,9 +410,10 @@
       document.querySelectorAll('[data-ui]').forEach(function (el) { el.textContent = ui(el.dataset.ui); });
 
       // Header
-      $('logoInitials').textContent = P.initials;
-      $('logoName').textContent = t(P.shortName);
-      $('logoRole').textContent = t(P.role);
+      var B = P.brand || {};
+      $('logoTagline').textContent = t(B.tagline);
+      $('logoName').textContent = t(B.name);
+      $('logoLink').setAttribute('aria-label', t(B.full));
       $('langSwitch').setAttribute('aria-label', ui('langGroup'));
       $('themeBtn').setAttribute('aria-label', ui('themeToggle'));
       $('menuBtn').setAttribute('aria-label', ui('menuOpen'));
@@ -386,12 +425,14 @@
       var navLinks = NAV.map(function (n) { return '<a href="' + n.href + '" class="hover:text-brand">' + esc(ui(n.key)) + '</a>'; }).join('');
       html('desktopNav', navLinks +
         '<a href="#/hoc-vien" class="inline-flex items-center rounded-full border border-brand text-brand px-4 py-1.5 hover:bg-brand hover:text-onbrand transition">' + esc(ui('navPortal')) + '</a>');
-      html('mobileNavList', NAV.map(function (n) { return '<a href="' + n.href + '" class="py-2.5">' + esc(ui(n.key)) + '</a>'; }).join('') +
-        '<a href="#/hoc-vien" class="py-2.5 font-medium text-brand">' + esc(ui('navPortal')) + ' →</a>');
+      html('mobileNavList', NAV.map(function (n) { return '<a href="' + n.href + '" class="py-3 border-b border-line/60">' + esc(ui(n.key)) + '</a>'; }).join('') +
+        '<a href="#/hoc-vien" class="py-3 font-medium text-brand">' + esc(ui('navPortal')) + ' →</a>');
 
       // Hero
       $('heroEyebrow').textContent = t(P.role) + ' · ' + t(P.location);
       $('heroName').textContent = t(P.name);
+      $('heroAlias').textContent = t(P.alias);
+      $('heroAlias').hidden = !t(P.alias);
       html('heroHeadline', T(D.hero.headline, 'hero.headline'));
       var q = t(D.hero.quote);
       $('heroQuote').hidden = !q; $('heroQuote').textContent = q;
@@ -501,8 +542,8 @@
 
       // Footer
       $('year').textContent = new Date().getFullYear();
+      $('footBrand').textContent = t(B.full);
       $('footName').textContent = t(P.name);
-      $('footRole').textContent = t(P.role);
 
       if (missing.length) console.warn('[site-data] Thiếu bản dịch "' + lang + '" tại:', missing);
       observeReveal();
@@ -537,11 +578,18 @@
       var dark = !document.documentElement.classList.contains('dark');
       document.documentElement.classList.toggle('dark', dark);
       store.set('ka-theme', dark ? 'dark' : 'light');
+      setThemeColor(dark);
     });
+    function setThemeColor(dark) {
+      var m = $('themeColor'); if (m) m.setAttribute('content', dark ? '#101412' : '#FAF8F3');
+    }
     // Nếu người xem chưa tự chọn: đi theo cài đặt hệ thống
     var mq = window.matchMedia('(prefers-color-scheme: dark)');
-    var onSys = function (e) { if (!store.get('ka-theme')) document.documentElement.classList.toggle('dark', e.matches); };
-    if (mq.addEventListener) mq.addEventListener('change', onSys);
+    var onSys = function (e) {
+      if (store.get('ka-theme')) return;
+      document.documentElement.classList.toggle('dark', e.matches); setThemeColor(e.matches);
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onSys); else if (mq.addListener) mq.addListener(onSys);
 
     /* ---------------- Menu di động ---------------- */
     var menuBtn = $('menuBtn'), mobileNav = $('mobileNav');
@@ -551,6 +599,11 @@
       menuBtn.setAttribute('aria-expanded', String(open));
     });
     mobileNav.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+    // Xoay màn hình / kéo rộng cửa sổ sang giao diện máy tính -> đóng menu di động
+    var lgMq = window.matchMedia('(min-width: 1024px)');
+    var onLg = function (e) { if (e.matches) closeMenu(); };
+    if (lgMq.addEventListener) lgMq.addEventListener('change', onLg); else if (lgMq.addListener) lgMq.addListener(onLg);
 
     /* ---------------- Router: #/, #/khoa-hoc, #/hoc-vien ; #id = neo cuộn ---------------- */
     var views = document.querySelectorAll('[data-view]');

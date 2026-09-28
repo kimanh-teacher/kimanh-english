@@ -18,8 +18,8 @@ window.SITE_DATA = {
   /* ---------- Thông tin chung ---------- */
   meta: {
     title: {
-      vi: "Nguyễn Thị Kim Anh · Giáo viên Tiếng Anh tại Đà Nẵng",
-      en: "Nguyen Thi Kim Anh · English Teacher in Da Nang"
+      vi: "English with Ms. Annie · Nguyễn Thị Kim Anh – Giáo viên Tiếng Anh tại Đà Nẵng",
+      en: "English with Ms. Annie · Nguyen Thi Kim Anh – English Teacher in Da Nang"
     },
     description: {
       vi: "Giáo viên Tiếng Anh tại Đà Nẵng. Cử nhân Ngôn ngữ Anh (ĐH Duy Tân), chứng chỉ TESOL 120 giờ, học viên Thạc sĩ Lý luận & Phương pháp dạy học Tiếng Anh.",
@@ -28,9 +28,15 @@ window.SITE_DATA = {
   },
 
   profile: {
+    // Thương hiệu (logo, tab trình duyệt, chân trang) – giữ nguyên ở cả 2 ngôn ngữ
+    brand: {
+      full:     "English with Ms. Annie",
+      tagline:  "English with",
+      name:     "Ms. Annie",
+      monogram: "A"
+    },
     name:     { vi: "Nguyễn Thị Kim Anh", en: "Nguyen Thi Kim Anh" },
-    shortName: "Kim Anh",
-    initials:  "KA",
+    alias:    "Ms. Annie",          // dòng phụ dưới họ tên ở phần đầu trang – để "" nếu muốn ẩn
     role:     { vi: "Giáo viên Tiếng Anh", en: "English Teacher" },
     location: { vi: "Đà Nẵng", en: "Da Nang" },
     photo:    "assets/avatar.jpg",
@@ -184,7 +190,7 @@ window.SITE_DATA = {
         { name:   { vi: "Cử nhân Ngôn ngữ Anh", en: "Bachelor's Degree in English Linguistics" },
           org:    { vi: "Trường Đại học Duy Tân", en: "Duy Tan University" },
           period: "2021 – 2025",
-          note:   { vi: "Tốt nghiệp loại Khá · GPA 3.2/4.0", en: "Good classification · GPA 3.2/4.0" } }
+          note:   { vi: "Tốt nghiệp loại Giỏi · GPA 3.2/4.0", en: "Very Good classification · GPA 3.2/4.0" } }
       ]
     },
     certificates: {
