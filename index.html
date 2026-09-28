@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>English with Ms. Annie · Nguyễn Thị Kim Anh – Giáo viên Tiếng Anh</title>
-  <meta name="description" content="English with Ms. Annie – Nguyễn Thị Kim Anh, giáo viên Tiếng Anh tại Đà Nẵng." />
+  <title>English with Ms. Annie · Giáo viên Tiếng Anh tại Đà Nẵng</title>
+  <meta name="description" content="English with Ms. Annie – giáo viên Tiếng Anh tại Đà Nẵng." />
   <meta property="og:title" content="English with Ms. Annie" />
   <meta property="og:type" content="website" />
   <meta name="color-scheme" content="light dark" />
@@ -123,15 +123,15 @@
   <header class="hdr sticky top-0 z-40 bg-paper/85 border-b border-line">
     <div class="max-w-page mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
       <!-- LOGO: biểu tượng chữ A (thanh ngang màu phấn) + chữ "English with Ms. Annie" -->
-      <a href="#/" id="logoLink" class="flex items-center gap-2 min-[380px]:gap-2.5 min-w-0">
+      <a href="#/" id="logoLink" aria-label="English with Ms. Annie" class="flex items-center gap-2 min-[380px]:gap-2.5 min-w-0">
         <svg class="shrink-0 w-9 h-9 min-[380px]:w-10 min-[380px]:h-10 rounded-full dark:ring-1 dark:ring-white/20" viewBox="0 0 64 64" aria-hidden="true">
           <circle cx="32" cy="32" r="32" fill="#1F5A4A"/>
           <path d="M20 47L32 16L44 47" fill="none" stroke="#FAF8F3" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M24.5 37.5H39.5" stroke="#E9B949" stroke-width="5" stroke-linecap="round"/>
         </svg>
         <span class="leading-none min-w-0">
-          <span id="logoTagline" class="block whitespace-nowrap text-[9.5px] min-[380px]:text-[10px] tracking-[.12em] min-[380px]:tracking-[.22em] uppercase text-ink-mute font-medium"></span>
-          <span id="logoName" class="block mt-1 font-serif font-semibold text-[17px] min-[380px]:text-[19px] tracking-tight whitespace-nowrap"></span>
+          <span id="logoTagline" class="block whitespace-nowrap text-[9.5px] min-[380px]:text-[10px] tracking-[.12em] min-[380px]:tracking-[.22em] uppercase text-ink-mute font-medium">English with</span>
+          <span id="logoName" class="block mt-1 font-serif font-semibold text-[17px] min-[380px]:text-[19px] tracking-tight whitespace-nowrap">Ms. Annie</span>
         </span>
       </a>
 
@@ -174,8 +174,8 @@
             <p class="inline-flex items-center gap-2 text-[12px] tracking-[.16em] uppercase text-brand font-semibold">
               <span class="w-6 h-px bg-brand"></span><span id="heroEyebrow"></span>
             </p>
-            <h1 id="heroName" class="mt-4 font-serif font-semibold text-[clamp(2.1rem,8.5vw,3rem)] leading-[1.1] tracking-tight"></h1>
-            <p id="heroAlias" class="mt-1.5 font-serif italic font-medium text-brand text-[clamp(1.4rem,5vw,1.85rem)]"></p>
+            <h1 id="heroName" class="mt-4 font-serif font-semibold text-[clamp(2.6rem,11vw,3.75rem)] leading-[1.05] tracking-tight">Ms. Annie</h1>
+            <p id="heroFullName" hidden class="mt-2 text-ink-mute text-[15px]"></p>
             <p id="heroHeadline" class="mt-5 text-lg sm:text-xl text-ink-soft max-w-xl"></p>
             <p id="heroQuote" class="mt-3 font-serif italic text-ink-mute"></p>
             <div class="mt-8 flex flex-wrap gap-3">
@@ -327,13 +327,13 @@
 
   <footer class="ftr border-t border-line">
     <div class="max-w-page mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row gap-3 justify-between text-sm text-ink-mute">
-      <p>© <span id="year"></span> <span id="footBrand" class="font-medium text-ink-soft"></span> · <span id="footName"></span></p>
+      <p>© <span id="year"></span> <span id="footBrand" class="font-medium text-ink-soft">English with Ms. Annie</span></p>
       <p data-ui="footerPlace"></p>
     </div>
   </footer>
 
   <!-- NỘI DUNG: sửa file này khi cập nhật thông tin -->
-  <script src="content/site-data.js"></script>
+  <script src="content/site-data.js?v=2026-09-29"></script>
 
   <script>
   (function () {
@@ -410,7 +410,10 @@
       document.querySelectorAll('[data-ui]').forEach(function (el) { el.textContent = ui(el.dataset.ui); });
 
       // Header
-      var B = P.brand || {};
+      // Giá trị mặc định: logo KHÔNG BAO GIỜ trống kể cả khi file nội dung là bản cũ
+      var B = { full: 'English with Ms. Annie', tagline: 'English with', name: 'Ms. Annie' };
+      if (P.brand) Object.keys(P.brand).forEach(function (k) { if (t(P.brand[k])) B[k] = P.brand[k]; });
+      else console.warn('[site-data] Thiếu profile.brand – có thể content/site-data.js là bản cũ.');
       $('logoTagline').textContent = t(B.tagline);
       $('logoName').textContent = t(B.name);
       $('logoLink').setAttribute('aria-label', t(B.full));
@@ -430,9 +433,10 @@
 
       // Hero
       $('heroEyebrow').textContent = t(P.role) + ' · ' + t(P.location);
-      $('heroName').textContent = t(P.name);
-      $('heroAlias').textContent = t(P.alias);
-      $('heroAlias').hidden = !t(P.alias);
+      $('heroName').textContent = t(P.displayName) || t(B.name);
+      var fn = P.showFullName ? t(P.fullName) : '';
+      $('heroFullName').textContent = fn;
+      $('heroFullName').hidden = !fn;
       html('heroHeadline', T(D.hero.headline, 'hero.headline'));
       var q = t(D.hero.quote);
       $('heroQuote').hidden = !q; $('heroQuote').textContent = q;
@@ -543,7 +547,6 @@
       // Footer
       $('year').textContent = new Date().getFullYear();
       $('footBrand').textContent = t(B.full);
-      $('footName').textContent = t(P.name);
 
       if (missing.length) console.warn('[site-data] Thiếu bản dịch "' + lang + '" tại:', missing);
       observeReveal();

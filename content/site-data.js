@@ -1,4 +1,5 @@
 /* =====================================================================
+   PHIÊN BẢN NỘI DUNG: 2026-09-29
    NỘI DUNG WEBSITE – FILE DUY NHẤT CẦN SỬA KHI CẬP NHẬT THÔNG TIN
    ---------------------------------------------------------------------
    Quy tắc:
@@ -18,12 +19,12 @@ window.SITE_DATA = {
   /* ---------- Thông tin chung ---------- */
   meta: {
     title: {
-      vi: "English with Ms. Annie · Nguyễn Thị Kim Anh – Giáo viên Tiếng Anh tại Đà Nẵng",
-      en: "English with Ms. Annie · Nguyen Thi Kim Anh – English Teacher in Da Nang"
+      vi: "English with Ms. Annie · Giáo viên Tiếng Anh tại Đà Nẵng",
+      en: "English with Ms. Annie · English Teacher in Da Nang"
     },
     description: {
-      vi: "Giáo viên Tiếng Anh tại Đà Nẵng. Cử nhân Ngôn ngữ Anh (ĐH Duy Tân), chứng chỉ TESOL 120 giờ, học viên Thạc sĩ Lý luận & Phương pháp dạy học Tiếng Anh.",
-      en: "English teacher in Da Nang. B.A. in English Linguistics (Duy Tan University), 120-hour TESOL certificate, currently pursuing a Master's in English Language Teaching Methodology."
+      vi: "English with Ms. Annie – giáo viên Tiếng Anh tại Đà Nẵng. Cử nhân Ngôn ngữ Anh (ĐH Duy Tân), chứng chỉ TESOL 120 giờ, học viên Thạc sĩ Lý luận & Phương pháp dạy học Tiếng Anh.",
+      en: "English with Ms. Annie – English teacher in Da Nang. B.A. in English Linguistics (Duy Tan University), 120-hour TESOL certificate, currently pursuing a Master's in English Language Teaching Methodology."
     }
   },
 
@@ -35,12 +36,15 @@ window.SITE_DATA = {
       name:     "Ms. Annie",
       monogram: "A"
     },
-    name:     { vi: "Nguyễn Thị Kim Anh", en: "Nguyen Thi Kim Anh" },
-    alias:    "Ms. Annie",          // dòng phụ dưới họ tên ở phần đầu trang – để "" nếu muốn ẩn
+    displayName: "Ms. Annie",       // Tên hiển thị lớn ở phần đầu trang
+    // Họ tên thật: KHÔNG hiển thị trên trang. Đổi showFullName thành true nếu muốn hiện
+    // một dòng nhỏ dưới "Ms. Annie" (tăng độ tin cậy khi phụ huynh đối chiếu bằng cấp).
+    fullName:     { vi: "Nguyễn Thị Kim Anh", en: "Nguyen Thi Kim Anh" },
+    showFullName: false,
     role:     { vi: "Giáo viên Tiếng Anh", en: "English Teacher" },
     location: { vi: "Đà Nẵng", en: "Da Nang" },
     photo:    "assets/avatar.jpg",
-    photoAlt: { vi: "Chân dung giáo viên Nguyễn Thị Kim Anh", en: "Portrait of teacher Nguyen Thi Kim Anh" },
+    photoAlt: { vi: "Chân dung Ms. Annie – giáo viên Tiếng Anh", en: "Portrait of Ms. Annie – English teacher" },
     badge:    { vi: "Đang giảng dạy tại IEC English Center", en: "Currently teaching at IEC English Center" },
     email:    "anhnguyenkh099@gmail.com",
     phone:    "0986777175",

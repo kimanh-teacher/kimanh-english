@@ -45,6 +45,14 @@ Tên thương hiệu nằm ở `profile.brand` (logo, chân trang, tiêu đề t
 - **Thêm phản hồi học viên:** thêm vào `testimonials.items`. Mục này tự hiện khi có ít nhất một phản hồi. Chỉ đưa lên phản hồi thật và đã được người viết đồng ý.
 - **Đổi ảnh:** ghi đè `assets/avatar.jpg` (ảnh dọc 3:4, rộng khoảng 600px, dưới 150 KB).
 
+### Thấy nội dung cũ sau khi đã cập nhật
+- Kiểm tra trong GitHub Desktop, tab **History**: commit vừa rồi phải có file `content/site-data.js`.
+- Trình duyệt có thể còn giữ file cũ. Nhấn ⌘⇧R (Mac) hoặc Ctrl+F5 (Windows) để tải lại.
+- Nếu vẫn thấy bản cũ: trong `index.html`, đổi số phiên bản ở dòng `content/site-data.js?v=2026-09-29` thành ngày hiện tại. Trình duyệt sẽ buộc phải tải file mới.
+
+### Tên hiển thị
+Trang hiển thị **Ms. Annie** (`profile.displayName`). Họ tên thật được lưu ở `profile.fullName` nhưng mặc định bị ẩn. Muốn hiện một dòng nhỏ dưới tên thì đổi `showFullName: true`.
+
 ### Khi trang báo "Không tải được nội dung"
 Nguyên nhân gần như luôn là file `site-data.js` bị sai cú pháp: thiếu dấu phẩy giữa hai mục, thiếu dấu nháy, hoặc dùng dấu `"` bên trong chữ (hãy dùng `“ ”`). Xem lại dòng vừa sửa. Trên GitHub bạn cũng có thể mở tab **History** để khôi phục bản trước.
 
